@@ -20,13 +20,16 @@ function App() {
     useEffect(() => {
         return onAuthUIStateChange((nextAuthState, authData) => {
             setAuthState(nextAuthState);
-            setUser(authData)
+            setUser(authData);
+            if (nextAuthState === AuthState.SignedIn) {
+                fetchNotes();
+            }
         });
     }, []);
 
     const [notes, setNotes] = useState([]);
     useEffect(() => {
-        fetchNotes();
+            
     }, []);
 
     const [formData, setFormData] = useState(initialFormState);
