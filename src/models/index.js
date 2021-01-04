@@ -4,9 +4,13 @@ import { schema } from './schema';
 
 
 
-const { Piece, Note } = initSchema(schema);
+const { Movement, SpotifyLink, YouTubeLink, Diploma, Piece, Note } = initSchema(schema);
 
 export {
+  Movement,
+  SpotifyLink,
+  YouTubeLink,
+  Diploma,
   Piece,
   Note
 };

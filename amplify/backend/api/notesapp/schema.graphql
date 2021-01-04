@@ -1,13 +1,52 @@
-type Piece @model @auth(rules: [{allow: public}]) {
+type Movement @model @auth(rules: [{allow: public}]) @key(name: "byPiece", fields: ["pieceID"]) {
   id: ID!
   title: String
-  composer: String
+  duration: String
+  pieceID: ID!
+  order: Int
+}
+
+type SpotifyLink @model @auth(rules: [{allow: public}]) @key(name: "byPiece", fields: ["pieceID"]) {
+  id: ID!
+  artist: String
+  spotifyID: String
+  pieceID: ID!
+}
+
+type YouTubeLink @model @auth(rules: [{allow: public}]) @key(name: "byPiece", fields: ["pieceID"]) {
+  id: ID!
+  artist: String
+  youTubeID: String
+  pieceID: ID!
+}
+
+type Diploma @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  instrument: String
+  provider: String
+  name: String
   duration: Int
+  criteria: String
+  Pieces: [Piece] @connection(keyName: "byDiploma", fields: ["id"])
+  url: String
+}
+
+type Piece @model @auth(rules: [{allow: public}]) @key(name: "byDiploma", fields: ["diplomaID"]) {
+  id: ID!
+  title: String
+  subtitle: String
+  duration: Int
+  diplomaID: ID!
+  comments: String
+  composer: String
+  YouTubeLinks: [YouTubeLink] @connection(keyName: "byPiece", fields: ["id"])
+  SpotifyLinks: [SpotifyLink] @connection(keyName: "byPiece", fields: ["id"])
+  Movements: [Movement] @connection(keyName: "byPiece", fields: ["id"])
 }
 
 type Note @model @auth(rules: [{allow: public}]) {
   id: ID!
-  name: String!
+  name: ID!
   description: String
   image: String
 }
