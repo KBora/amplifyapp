@@ -3,18 +3,20 @@ import './App.css';
 import Amplify from 'aws-amplify';
 import { API, Storage } from 'aws-amplify';
 import { AmplifyAuthenticator, AmplifySignUp, AmplifySignOut } from '@aws-amplify/ui-react';
-import { listNotes } from './graphql/queries';
+import { listNotes, listDiplomas } from './graphql/queries';
 import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from './graphql/mutations';
+import { createDiploma as createDiplomaMutation, deleteNote as deleteDiplomaMutation } from './graphql/mutations';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import awsconfig from './aws-exports';
 
 import RepertoireList from './components/RepertoireList';
 
-const initialFormState = { name: '', description: '' }
+const initialFormState = { name: '', provider: '' }
 
 Amplify.configure(awsconfig);
 
 function App() {
+    // Authentication
     const [authState, setAuthState] = React.useState();
     const [user, setUser] = useState();
     useEffect(() => {
@@ -22,17 +24,19 @@ function App() {
             setAuthState(nextAuthState);
             setUser(authData);
             if (nextAuthState === AuthState.SignedIn) {
-                fetchNotes();
+                fetchDiplomas();
             }
         });
     }, []);
 
+    // Forms
+    const [formData, setFormData] = useState(initialFormState);
+
+    // Notes (demo app)
     const [notes, setNotes] = useState([]);
     useEffect(() => {
             
     }, []);
-
-    const [formData, setFormData] = useState(initialFormState);
 
     async function fetchNotes() {
         const apiData = await API.graphql({ query: listNotes });
@@ -73,37 +77,56 @@ function App() {
         fetchNotes();
     }
 
+    // Repertoire Select
+    const [diplomas, setDiplomas] = useState([]);
+    useEffect(() => {
+        fetchDiplomas();
+    }, []);
+
+    async function fetchDiplomas() {
+        const apiData = await API.graphql({ query: listDiplomas });
+        const diplomasFromAPI = apiData.data.listDiplomas.items;
+        await Promise.all(diplomasFromAPI.map(async diploma => {
+            return diploma;
+        }))
+        setDiplomas(diplomasFromAPI);
+    }
+
+    async function createDiploma() {
+        if (!formData.name || !formData.provider || !formData.instrument) return;
+        await API.graphql({ query: createDiplomaMutation, variables: { input: formData } });        
+        setFormData(initialFormState);
+        fetchDiplomas();
+    }
+
     return authState === AuthState.SignedIn && user ? (
         <div className="App">
-            <h1>My Notes App</h1>
-            <pre>
-                { user.payload?.email } 
-            </pre>
+            <h3>Diploma Fields</h3>
+            <input
+                onChange={e => setFormData({ ...formData, 'provider': e.target.value })}
+                placeholder="Diploma provider"
+                value={formData.provider}
+            />
             <input
                 onChange={e => setFormData({ ...formData, 'name': e.target.value })}
-                placeholder="Note name"
+                placeholder="Diploma name"
                 value={formData.name}
             />
             <input
-                onChange={e => setFormData({ ...formData, 'description': e.target.value })}
-                placeholder="Note description"
-                value={formData.description}
+                onChange={e => setFormData({ ...formData, 'instrument': e.target.value })}
+                placeholder="Diploma instrument"
+                value={formData.instrument}
             />
-            <input
-                type="file"
-                onChange={onChange}
-            />
-            <button onClick={createNote}>Create Note</button>
+            <button onClick={createDiploma}>Create Diploma</button>
+
             <div style={{ marginBottom: 30 }}>
                 {
-                    notes.map(note => (
-                        <div key={note.id || note.name}>
-                            <h2>{note.name}</h2>
-                            <p>{note.description}</p>
-                            <button onClick={() => deleteNote(note)}>Delete note</button>
-                            {
-                                note.image && <img src={note.image} alt='test' style={{ width: 400 }} />
-                            }
+                    diplomas.map(diploma => (
+                        <div key={diploma.id || diploma.name}>
+                            <h2>{diploma.name}</h2>
+                            <p>{diploma.provider}</p>
+                            <p>{diploma.instrument}</p>
+                            {/* <button onClick={() => deleteNote(note)}>Delete</button> */}
                         </div>
                     ))
                 }
