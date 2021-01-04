@@ -8,6 +8,8 @@ import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } fr
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import awsconfig from './aws-exports';
 
+import RepertoireList from './components/RepertoireList';
+
 const initialFormState = { name: '', description: '' }
 
 Amplify.configure(awsconfig);
@@ -71,6 +73,9 @@ function App() {
     return authState === AuthState.SignedIn && user ? (
         <div className="App">
             <h1>My Notes App</h1>
+            <pre>
+                { user.payload?.email } 
+            </pre>
             <input
                 onChange={e => setFormData({ ...formData, 'name': e.target.value })}
                 placeholder="Note name"
@@ -100,6 +105,7 @@ function App() {
                     ))
                 }
             </div>
+            <RepertoireList />
             <AmplifySignOut />
         </div>
     ) : (
