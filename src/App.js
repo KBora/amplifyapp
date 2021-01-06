@@ -3,7 +3,7 @@ import './App.css';
 import Amplify from 'aws-amplify';
 import { API } from 'aws-amplify';
 import { AmplifyAuthenticator, AmplifySignUp, AmplifySignOut } from '@aws-amplify/ui-react';
-import { listDiplomas } from './graphql/queries';
+import { listDiplomas, listPieces } from './graphql/queries';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import awsconfig from './aws-exports';
 
@@ -23,6 +23,7 @@ function App() {
             setUser(authData);
             if (nextAuthState === AuthState.SignedIn) {
                 fetchDiplomas();
+                fetchPieces('552cf7ec-a1c6-4f75-949d-d882f0654fb1');
             }
         });
     }, []);
@@ -46,6 +47,31 @@ function App() {
         fetchDiplomas();
     }
 
+    // fetch pieces by hard coded diploma
+    const [pieces, setPieces] = useState([]);
+    useEffect(() => {
+        fetchPieces();
+    }, []);
+
+    async function fetchPieces(diplomaID) {
+        const apiData = await API.graphql({
+            query: listPieces,
+            variables: {
+                filter: {
+                    diplomaID: {
+                        eq: diplomaID
+                    }
+                }
+            }
+        });
+        const piecesFromAPI = apiData.data.listPieces.items;
+        await Promise.all(piecesFromAPI.map(async piece => {
+            return piece;
+        }))
+        setPieces(piecesFromAPI);
+    }
+    // pass pieces into repertoire list component
+
     return authState === AuthState.SignedIn && user ? (
         <div className="App">
             <CreateDiploma onDiplomaCreated={handleDiplomaCreated}/>
@@ -58,6 +84,18 @@ function App() {
                             <h2>{diploma.name}</h2>
                             <p>{diploma.provider}</p>
                             <p>{diploma.instrument}</p>
+                            {/* <button onClick={() => deleteNote(note)}>Delete</button> */}
+                        </div>
+                    ))
+                }
+            </div>
+            <div style={{ marginBottom: 30 }}>
+                {
+                    pieces.map(piece => (
+                        <div key={piece.id || piece.title}>
+                            <h2>{piece.title}</h2>
+                            <p>{piece.subtitle}</p>
+                            <p>{piece.composer}</p>
                             {/* <button onClick={() => deleteNote(note)}>Delete</button> */}
                         </div>
                     ))
