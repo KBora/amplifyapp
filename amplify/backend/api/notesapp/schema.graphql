@@ -42,6 +42,7 @@ type Piece @model @auth(rules: [{allow: public}]) @key(name: "byDiploma", fields
   YouTubeLinks: [YouTubeLink] @connection(keyName: "byPiece", fields: ["id"])
   SpotifyLinks: [SpotifyLink] @connection(keyName: "byPiece", fields: ["id"])
   Movements: [Movement] @connection(keyName: "byPiece", fields: ["id"])
+  order: Int
 }
 
 type Note @model @auth(rules: [{allow: public}]) {

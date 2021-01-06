@@ -390,6 +390,13 @@ export const schema = {
                         "connectionType": "HAS_MANY",
                         "associatedWith": "pieceID"
                     }
+                },
+                "order": {
+                    "name": "order",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -486,5 +493,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "d3affb7e821b1e3f68650a819c07aeac"
+    "version": "0914c5652be3e73cf5eade460d51e867"
 };

@@ -56,6 +56,7 @@ export declare class Piece {
   readonly YouTubeLinks?: (YouTubeLink | null)[];
   readonly SpotifyLinks?: (SpotifyLink | null)[];
   readonly Movements?: (Movement | null)[];
+  readonly order?: number;
   constructor(init: ModelInit<Piece>);
   static copyOf(source: Piece, mutator: (draft: MutableModel<Piece>) => MutableModel<Piece> | void): Piece;
 }
