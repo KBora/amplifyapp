@@ -9,8 +9,7 @@ import awsconfig from './aws-exports';
 
 import RepertoireList from './components/RepertoireList';
 import CreateDiploma from './components/CreateDiploma';
-
-const initialFormState = { name: '', provider: '' }
+import CreatePiece from './components/CreatePiece';
 
 Amplify.configure(awsconfig);
 
@@ -50,7 +49,8 @@ function App() {
     return authState === AuthState.SignedIn && user ? (
         <div className="App">
             <CreateDiploma onDiplomaCreated={handleDiplomaCreated}/>
-
+            <hr />
+            <CreatePiece />
             <div style={{ marginBottom: 30 }}>
                 {
                     diplomas.map(diploma => (
