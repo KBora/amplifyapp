@@ -22,7 +22,7 @@ function App() {
             setAuthState(nextAuthState);
             setUser(authData);
             if (nextAuthState === AuthState.SignedIn) {
-                fetchDiplomas();
+                // fetchDiplomas();
                 fetchPieces('552cf7ec-a1c6-4f75-949d-d882f0654fb1');
             }
         });
@@ -49,9 +49,6 @@ function App() {
 
     // fetch pieces by hard coded diploma
     const [pieces, setPieces] = useState([]);
-    useEffect(() => {
-        fetchPieces();
-    }, []);
 
     async function fetchPieces(diplomaID) {
         const apiData = await API.graphql({
@@ -77,18 +74,7 @@ function App() {
             <CreateDiploma onDiplomaCreated={handleDiplomaCreated}/>
             <hr />
             <CreatePiece />
-            <div style={{ marginBottom: 30 }}>
-                {
-                    diplomas.map(diploma => (
-                        <div key={diploma.id || diploma.name}>
-                            <h2>{diploma.name}</h2>
-                            <p>{diploma.provider}</p>
-                            <p>{diploma.instrument}</p>
-                            {/* <button onClick={() => deleteNote(note)}>Delete</button> */}
-                        </div>
-                    ))
-                }
-            </div>
+            <h3>ABRSM Piano</h3>
             <div style={{ marginBottom: 30 }}>
                 {
                     pieces.map(piece => (
