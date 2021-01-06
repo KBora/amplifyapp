@@ -15,3 +15,8 @@ It consists of:
 ## About
 
 This application presents lists of classical music, grouped by music examination diploma repertoire. It allows candidates to browse, select and organise a program of music for their a particular exam.
+
+
+## Tailwind installation
+https://tailwindcss.com/docs/guides/create-react-app
+Use node v12.18.3

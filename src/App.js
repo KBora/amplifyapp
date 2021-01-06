@@ -10,6 +10,7 @@ import awsconfig from './aws-exports';
 import RepertoireList from './components/RepertoireList';
 import CreateDiploma from './components/CreateDiploma';
 import CreatePiece from './components/CreatePiece';
+import PieceCard from './components/PieceCard';
 
 Amplify.configure(awsconfig);
 
@@ -75,15 +76,10 @@ function App() {
             <hr />
             <CreatePiece />
             <h3>ABRSM Piano</h3>
-            <div style={{ marginBottom: 30 }}>
+            <div className="p-6 bg-gray-200">
                 {
                     pieces.map(piece => (
-                        <div key={piece.id || piece.title}>
-                            <h2>{piece.title}</h2>
-                            <p>{piece.subtitle}</p>
-                            <p>{piece.composer}</p>
-                            {/* <button onClick={() => deleteNote(note)}>Delete</button> */}
-                        </div>
+                        <PieceCard piece={piece} key={piece.id || piece.title}/>
                     ))
                 }
             </div>
