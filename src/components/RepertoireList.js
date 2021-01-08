@@ -1,12 +1,16 @@
 // prop > repertoire ID
-import React, { useState } from 'react';
+import React from 'react';
+import PieceCard from './PieceCard';
 
-function RepertoireList() {
+function RepertoireList(props) {
     return (
-        <div>
-            <h1>Repertoire List</h1>
-            <div>Search bar goes here</div>
-            <div>List of pieces goes here</div>
+        <div className="p-6">
+            <h3 className="font-medium mb-4 text-xl">Repertoire List</h3>
+            {
+                props.pieces.map(piece => (
+                    <PieceCard piece={piece} key={piece.id || piece.title}/>
+                ))
+            }
         </div>
     )
 }

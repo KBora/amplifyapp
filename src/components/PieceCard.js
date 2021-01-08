@@ -2,7 +2,7 @@ import React from 'react';
 
 function PieceCard(props) {
     return (
-        <div className="sm:rounded-lg shadow bg-white p-6 m-2 flex flex-row justify-between">
+        <div className="rounded-lg shadow bg-white p-6 mb-2 flex flex-row justify-between">
             <div className="w-40 font-bold">{props.piece.composer}</div>
             <div className="w-full">
                 <div>{props.piece.title}</div>

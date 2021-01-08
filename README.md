@@ -13,11 +13,8 @@ It consists of:
 - Authentication - Implemented using AWS CLI libraries
 
 ## About
+This site presents classical music repertoire, organised by music examination diploma and instrument. It allows candidates and music lovers to browse and select a program of music. Further information is provided, such as average playing duration, recommended recordings from YouTube and Spotify, suggested editons (free and paid sheet music) and user comments (to do).
 
-This application presents lists of classical music, grouped by music examination diploma repertoire. It allows candidates to browse, select and organise a program of music for their a particular exam.
-
-
-## Tailwind installation
 https://tailwindcss.com/docs/guides/create-react-app
 Use node v12.18.3
 
@@ -27,5 +24,9 @@ Can create 25 at a time using `batch-write-item` command
 `item.json` contents generated from spreadsheet https://docs.google.com/spreadsheets/d/1lT85rLy66XauULM7sGclTFK6u8d481tq2dZL-GJ4AYY/edit#gid=1301683150
 DiplomaID is hardcoded
 
+## AWS online interfaces
+- Using tools provided by amplify eg. create data model  but it seems you can only do basic things.. so not sure what would happen if you edit the schema outside the admin tool
+- To open Admin UI: `amplify console`, then select `Admin UI`
 TO DO / FIGURE OUT:
-How to create spotify / admin items and link to the piece ID (unless we make the key the title and the composer and link it that way)
+- How to create spotify / admin items and link to the piece ID (unless we make the key the title and the composer and link it that way)
+- Make the key / link between piece and diploma NOT diploma ID but exam and diploma combination.. that way dont have to hard code diploma ID

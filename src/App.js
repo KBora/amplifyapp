@@ -10,7 +10,9 @@ import awsconfig from './aws-exports';
 import RepertoireList from './components/RepertoireList';
 import CreateDiploma from './components/CreateDiploma';
 import CreatePiece from './components/CreatePiece';
-import PieceCard from './components/PieceCard';
+import Navbar from './components/Navbar';
+import MyProgram from './components/MyProgram';
+import Diploma from './components/Diploma';
 
 Amplify.configure(awsconfig);
 
@@ -71,21 +73,28 @@ function App() {
     // pass pieces into repertoire list component
 
     return authState === AuthState.SignedIn && user ? (
-        <div className="App">
-            <CreateDiploma onDiplomaCreated={handleDiplomaCreated}/>
-            <hr />
-            <CreatePiece />
-            <h3>ABRSM Piano</h3>
-            <div className="p-6 bg-gray-200">
-                {
-                    pieces.map(piece => (
-                        <PieceCard piece={piece} key={piece.id || piece.title}/>
-                    ))
-                }
+        <div>
+            <Navbar />
+            <div className="bg-gray-200">
+                <Diploma diploma={diplomas[1]} />
+                <div className="grid grid-cols-3 gap-4 max-w-7xl mx-auto">
+                    <div className="col-span-2">
+                        {/* <CreateDiploma onDiplomaCreated={handleDiplomaCreated}/>
+                        <hr />
+                        <CreatePiece />
+                        <h3>ABRSM Piano</h3> */}
+                        
+                        <RepertoireList pieces={pieces}/>
+                    </div>
+                    <div>
+                        <MyProgram />
+                    </div>
+                    {/* <AmplifySignOut /> */}
+                </div>
             </div>
-            <RepertoireList />
-            <AmplifySignOut />
         </div>
+
+        
     ) : (
             <AmplifyAuthenticator usernameAlias="email">
                 <AmplifySignUp
