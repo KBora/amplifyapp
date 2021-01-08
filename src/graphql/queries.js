@@ -391,6 +391,7 @@ export const listPieces = /* GraphQL */ `
         _lastChangedAt
         createdAt
         updatedAt
+        order
         Movements {
           nextToken
           startedAt
