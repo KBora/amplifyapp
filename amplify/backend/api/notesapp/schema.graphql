@@ -39,10 +39,10 @@ type Piece @model @auth(rules: [{allow: public}]) @key(name: "byDiploma", fields
   diplomaID: ID!
   comments: String
   composer: String
-  YouTubeLinks: [YouTubeLink] @connection(keyName: "byPiece", fields: ["id"])
   SpotifyLinks: [SpotifyLink] @connection(keyName: "byPiece", fields: ["id"])
   Movements: [Movement] @connection(keyName: "byPiece", fields: ["id"])
   order: Int
+  YouTubeLinks: [YouTubeLink] @connection(keyName: "byPiece", fields: ["id"])
 }
 
 type Note @model @auth(rules: [{allow: public}]) {

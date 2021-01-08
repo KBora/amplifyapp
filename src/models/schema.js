@@ -349,20 +349,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "YouTubeLinks": {
-                    "name": "YouTubeLinks",
-                    "isArray": true,
-                    "type": {
-                        "model": "YouTubeLink"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "pieceID"
-                    }
-                },
                 "SpotifyLinks": {
                     "name": "SpotifyLinks",
                     "isArray": true,
@@ -397,6 +383,20 @@ export const schema = {
                     "type": "Int",
                     "isRequired": false,
                     "attributes": []
+                },
+                "YouTubeLinks": {
+                    "name": "YouTubeLinks",
+                    "isArray": true,
+                    "type": {
+                        "model": "YouTubeLink"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "pieceID"
+                    }
                 }
             },
             "syncable": true,

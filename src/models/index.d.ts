@@ -53,10 +53,10 @@ export declare class Piece {
   readonly diplomaID: string;
   readonly comments?: string;
   readonly composer?: string;
-  readonly YouTubeLinks?: (YouTubeLink | null)[];
   readonly SpotifyLinks?: (SpotifyLink | null)[];
   readonly Movements?: (Movement | null)[];
   readonly order?: number;
+  readonly YouTubeLinks?: (YouTubeLink | null)[];
   constructor(init: ModelInit<Piece>);
   static copyOf(source: Piece, mutator: (draft: MutableModel<Piece>) => MutableModel<Piece> | void): Piece;
 }
