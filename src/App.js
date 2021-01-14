@@ -72,11 +72,22 @@ function App() {
     }
     // pass pieces into repertoire list component
 
+    const [selectedPieces, setSelectedPieces] = useState([]);
+    useEffect(() => {
+        setSelectedPieces([]);
+    }, []);
+
+    function addPiece(piece) {
+        console.log('addPiece, piece', piece);
+        setSelectedPieces(selectedPieces.concat(piece));
+        console.log(selectedPieces);
+    }
+
     return authState === AuthState.SignedIn && user ? (
         <div>
             <Navbar />
             <div className="bg-gray-200">
-                <Diploma diploma={diplomas[1]} />
+                {/* <Diploma diploma={diplomas[1]} /> */}
                 <div className="grid grid-cols-3 gap-4 max-w-7xl mx-auto">
                     <div className="col-span-2">
                         {/* <CreateDiploma onDiplomaCreated={handleDiplomaCreated}/>
@@ -84,10 +95,10 @@ function App() {
                         <CreatePiece />
                         <h3>ABRSM Piano</h3> */}
                         
-                        <RepertoireList pieces={pieces}/>
+                        <RepertoireList pieces={pieces} addPiece={addPiece}/>
                     </div>
                     <div>
-                        <MyProgram />
+                        <MyProgram selectedPieces={selectedPieces}/>
                     </div>
                     {/* <AmplifySignOut /> */}
                 </div>

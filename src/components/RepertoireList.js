@@ -8,7 +8,7 @@ function RepertoireList(props) {
             <h3 className="font-medium mb-4 text-xl">Repertoire List</h3>
             {
                 props.pieces.map(piece => (
-                    <PieceCard piece={piece} key={piece.id || piece.title}/>
+                    <PieceCard piece={piece} key={piece.id || piece.title} addPiece={props.addPiece}/>
                 ))
             }
         </div>

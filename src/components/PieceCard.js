@@ -12,7 +12,7 @@ function PieceCard(props) {
                 <div>{new Date(props.piece.duration * 1000).toISOString().substr(14, 5)}
                 </div>
             </div>            
-                        {/* <button onClick={() => deleteNote(note)}>Delete</button> */}
+            <button onClick={() => props.addPiece(props.piece)}>Add</button>
         </div>
     )
 }
